@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>撰写博客</title>
+
+    <link rel="shortcut icon" type=images/x-icon href=/static/home/logo.ico>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        textarea {
+            border: none;
+            outline: none;
+            padding: 0;
+            margin: 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: none;
+            background-color: rgba(255, 255, 255, 0.5);
+            font-family: Verdana;
+            font-size: 100%;
+            width: 50%;
+        }
+
+        textarea:focus {
+            outline: none;
+        }
+
+        input.title {
+            border: none;
+            outline: none;
+            padding: 0;
+            margin: 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: none;
+            background-color: rgba(255, 255, 255, 0.5);
+            font-family: Verdana;
+            font-size: 200%;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        input.add {
+            border: none;
+            outline: none;
+            padding: 0;
+            margin: 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: none;
+            background-color: rgba(255, 255, 255, 1);
+            font-family: Verdana;
+            font-size: 100%;
+            width: 100%;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        body {
+            background-image: url({{user.back_photo}});
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        .blue {
+            background-color: rgba(0, 159, 212, 0.4);
+        }
+
+        .white {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        form.central {
+            position: fixed;
+            border: 5px solid rgba(181, 144, 255, 1);
+            background-color: rgba(181, 144, 255, 0.8);
+            bottom: 50%;
+            right: 30%;
+            width: 40%;
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body onload="showtime();preview_post()">
+
+    <form id="form" action="/add_post" method="post">
+
+        <div class="white">
+            <input class="title" id="blog_title" name="title" value="请输入博客文章标题">
+            <p><span id="date2"></span><a href="/">回到主页</a></p>
+        </div>
+
+        <div class="white">
+
+            <p>
+                <button type="button" onclick="turnHead(1)">H1</button>
+                <button type="button" onclick="turnHead(2)">H2</button>
+                <button type="button" onclick="turnHead(3)">H3</button>
+                <button type="button" onclick="turnHead(4)">H4</button>
+                <button type="button" onclick="turnHead(5)">H5</button>
+                <button type="button" onclick="turnHead(6)">H6</button>
+                <button type="button" onclick="turnStrong()">粗体</button>
+                <button type="button" onclick="turnItalic()">斜体</button>
+                <button type="button" onclick="turnEM()">删除线</button>
+                <button type="button" onclick="addCrossLine()">分割线</button>
+                <button type="button" onclick="ableLink()">链接</button>
+                <button type="button" onclick="ablePhoto()">图片</button>
+                <button type="button" style="position: absolute;right:10px;" onclick="check()">提交博客</button>
+            </p>
+
+
+            <textarea id="blog_content" name="content" rows="30" oninput="preview_post();">
+请输入博客文章内容
+</textarea>
+
+
+            <div style="float:right;height:100%;width:50%">
+                <iframe class="frame" name="preview" height="580px" width="100%"></iframe>
+            </div>
+
+
+            <input id="time" name="time" style="display:none">
+        </div>
+    </form>
+
+    <form id="add_link" class="central">
+        <p>
+            <label for="link_name">链接名称:</label>
+            <input type="text" id="link_name" name="link_name" class="add">
+            <br>
+            <label for="link">链接地址:</label>
+            <input type="text" id="link" name="link" class="add">
+        </p>
+
+        <button type="button" style="position:relative;right:0px;" onclick="quit(1)">取消</button>
+        <button type="button" style="position:relative;right:0px;" onclick="add(1)">提交</button>
+
+    </form>
+
+    <form id="add_photo" class="central">
+        <p>
+            <label for="photo_name">图片名称:</label>
+            <input type="text" id="photo_name" name="photo_name" class="add">
+            <br>
+            <label for="photo">图片地址:</label>
+            <input type="text" id="photo" name="photo" class="add">
+        </p>
+
+        <button type="button" style="position:relative;right:0px;" onclick="quit(2)">取消</button>
+        <button type="button" style="position:relative;right:0px;" onclick="add(2)">提交</button>
+
+    </form>
+
+    <div style="display:none;">
+        <form id="from_preview" target="preview" action="/add_preview#end" method="post">
+            <textarea id="_blog_content" name="content" oninput="preview_post()">
+请输入博客文章内容
+</textarea>
+        </form>
+    </div>
+
+    <script>
+
+        function turnHead(H) {
+            let test = document.getElementById("blog_content");
+            let selstart = test.selectionStart;
+            let lastCRpos = test.value.substring(0, selstart).lastIndexOf('\n');
+            lastCRpos++;
+            test.value = test.value.substring(0, lastCRpos) + "#".repeat(H) + " " + test.value.substring(lastCRpos, test.value.length);
+            preview_post();
+        }
+        function turnStrong() {
+            let test = document.getElementById("blog_content");
+            let selstart = test.selectionStart;
+            let selend = test.selectionEnd;
+            if (selstart == selend)
+                return
+            test.value = test.value.substring(0, selstart) + "**" + test.value.substring(selstart, selend) + "**" + test.value.substring(selend, test.value.length);
+            preview_post();
+        }
+        function turnItalic() {
+            let test = document.getElementById("blog_content");
+            let selstart = test.selectionStart;
+            let selend = test.selectionEnd;
+            if (selstart == selend)
+                return
+            test.value = test.value.substring(0, selstart) + "__" + test.value.substring(selstart, selend) + "__" + test.value.substring(selend, test.value.length);
+            preview_post();
+        }
+        function turnEM() {
+            let test = document.getElementById("blog_content");
+            let selstart = test.selectionStart;
+            let selend = test.selectionEnd;
+            if (selstart == selend)
+                return
+            test.value = test.value.substring(0, selstart) + "~~" + test.value.substring(selstart, selend) + "~~" + test.value.substring(selend, test.value.length);
+            preview_post();
+        }
+        function ableLink() {
+            document.getElementById("add_link").style.display = "block";
+        }
+        function ablePhoto() {
+            document.getElementById("add_photo").style.display = "block";
+        }
+        function insertLink(link, name) {
+            let test = document.getElementById("blog_content");
+            let selstart = test.selectionStart;
+            test.value = test.value.substring(0, selstart) + "[" + name + "](" + link + ")" + test.value.substring(selstart, test.value.length);
+            preview_post();
+        }
+        function insertImg(link, name) {
+            let test = document.getElementById("blog_content");
+            let selstart = test.selectionStart;
+            test.value = test.value.substring(0, selstart) + "![" + name + "](" + link + ")" + test.value.substring(selstart, test.value.length);
+            preview_post();
+        }
+        function quit(num) {
+            if (num == 1) {
+                document.getElementById("link_name").value = "";
+                document.getElementById("link").value = "";
+                document.getElementById("add_link").style.display = "none";
+            }
+            else {
+                document.getElementById("photo_name").value = "";
+                document.getElementById("photo").value = "";
+                document.getElementById("add_photo").style.display = "none";
+            }
+        }
+        function add(num) {
+            if (num == 1) {
+                let link = document.getElementById("link").value;
+                let name = document.getElementById("link_name").value
+                insertLink(link, name);
+                document.getElementById("link_name").value = "";
+                document.getElementById("link").value = "";
+                document.getElementById("add_link").style.display = "none";
+            }
+            else {
+                let link = document.getElementById("photo").value;
+                let name = document.getElementById("photo_name").value
+                insertImg(link, name);
+                document.getElementById("photo_name").value = "";
+                document.getElementById("photo").value = "";
+                document.getElementById("add_photo").style.display = "none";
+            }
+        }
+        function addCrossLine() {
+            let test = document.getElementById("blog_content");
+            let selstart = test.selectionStart;
+            test.value = test.value.substring(0, selstart) + "\n---\n" + test.value.substring(selstart, test.value.length);
+            preview_post();
+        }
+
+
+
+        function showtime() {
+            let d = new Date();
+            document.getElementById("date2").innerHTML = d;
+            setTimeout(showtime, 1000);
+        }
+
+        function check() {
+            var title = document.getElementById("blog_title").value;
+            let title_L = getStrLength(title);
+            var content = document.getElementById("blog_content").value;
+            let content_L = getStrLength(content);
+            if (title == "") {
+                alert("标题不能为空");
+            }
+            else if (title_L > 100) {
+                alert("标题不能超过100ascii字符");
+            }
+            else if (content == "") {
+                alert("内容不能为空");
+            }
+            else if (content_L > 64000) {
+                alert("内容不能超过64000ascii字符");
+            }
+            else {
+                let d = new Date();
+                let d_str = "" + d.getFullYear();
+                d_str += "年";
+                d_str += (d.getMonth() + 1);
+                d_str += "月";
+                d_str += d.getDate();
+                d_str += "日  ";
+
+                let carry = d.getHours();
+                if (carry < 10)
+                    d_str += 0;
+                d_str += carry;
+                d_str += ":";
+
+                carry = d.getMinutes();
+                if (carry < 10)
+                    d_str += 0;
+                d_str += carry;
+                d_str += ":";
+
+                carry = d.getSeconds();
+                if (carry < 10)
+                    d_str += 0;
+                d_str += carry;
+
+
+                document.getElementById('time').value = d_str;
+                let form = document.getElementById("form");
+                form.submit();
+                alert("发布成功");
+            }
+        }
+
+        function preview_post() {
+            let content = document.getElementById("blog_content").value;
+            let test = document.getElementById("_blog_content");
+            test.value = content;
+            let from_preview = document.getElementById("from_preview");
+            from_preview.submit();
+        }
+
+
+        function getStrLength(str) {
+            var length = 0;
+            for (var i = 0; i < str.length; i++) {
+                var c = str.charCodeAt(i);
+                if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
+                    length++;
+                }
+                else {
+                    length += 2;
+                }
+            }
+            return length;
+        }
+
+    </script>
+
+</body>
+
+</html>

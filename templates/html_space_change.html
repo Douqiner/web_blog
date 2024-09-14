@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+
+    </title>
+
+    <link rel="shortcut icon" type=images/x-icon href=/static/home/logo.ico>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-image: url('/static/home/blue.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        .blue {
+            background-color: rgba(0, 159, 212, 0.4);
+        }
+
+        .white {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .deep_blue {
+            background-color: rgba(0, 159, 212, 1);
+        }
+
+        .deep_white {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .red {
+            background-color: rgba(255, 99, 71, 0.4);
+        }
+
+        .deep_red {
+            background-color: rgba(255, 99, 71, 1);
+        }
+
+        .yellow {
+            background-color: rgba(255, 255, 0, 0.4);
+        }
+
+        .deep_yellow {
+            background-color: rgba(255, 255, 0, 1);
+        }
+
+        .green {
+            background-color: rgba(120, 255, 0, 0.4);
+        }
+
+        .deep_green {
+            background-color: rgba(120, 255, 0, 1);
+        }
+
+        .pink {
+            background-color: rgba(255, 152, 227, 0.4);
+        }
+
+        .deep_pink {
+            background-color: rgba(255, 152, 227, 1);
+        }
+
+        a.blog {
+            font-family: Verdana;
+            font-size: 150%;
+            font-weight: bold;
+            color: rgba(255, 101, 71, 1);
+            text-decoration: none;
+        }
+
+        a:hover.blog {
+            font-family: Verdana;
+            font-size: 150%;
+            font-weight: bold;
+            color: red;
+            text-decoration: none;
+        }
+
+        a:visited.blog {
+            font-family: Verdana;
+            font-size: 150%;
+            font-weight: bold;
+            color: rgba(66, 123, 106, 1);
+            text-decoration: none;
+        }
+
+        li.title {
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        input.title {
+            border: none;
+            outline: none;
+            padding: 0;
+            margin: 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: none;
+            background-color: rgba(255, 255, 255, 0.5);
+            font-family: Verdana;
+            font-size: 150%;
+            font-weight: bold;
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body onload="showtime()">
+
+    <form id="form" action="/space_change" method="post" enctype="multipart/form-data">
+
+        <div class="deep_white" style="position: fixed;top: 0;right: 0;width: 100%;" id="div_deep">
+            <input class="title" id="signature" name="signature" value="签名" style="color:black">
+            <span id="date"></span>
+            <br>
+            <label for="color_sign">选择签名颜色</label>
+            <input type="color" name="color_sign" id="color_sign" value="black" oninput="color_sign_change();">
+            <label for="back_class">选择主题颜色</label>
+            <select id="back_class" name="back_class" oninput="back_class_change();">
+                <option style='display: none'></option>
+                <option value="white">white</option>
+                <option value="blue">blue</option>
+                <option value="red">red</option>
+                <option value="yellow">yellow</option>
+                <option value="green">green</option>
+                <option value="pink">pink</option>
+            </select>
+            <label for="image">上传背景图片</label>
+            <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .gif">
+
+            <button type="button" onclick="change()">提交修改</button>
+        </div>
+
+        <div class="deep_white" style="visibility:hidden;">
+            <h2>一</h2>
+            <a>一</a>
+        </div>
+
+    </form>
+
+    <div class="white" id="div_light">
+        <h1 id="name_blog">
+
+        </h1>
+        <ul id="list">
+            <li class="title"> <a href="/post/0" class="blog">这是一篇文章</a><br>
+                <p>1145年1月4日<span>作者:?</span></p>
+            </li>
+            <li class="title"> <a href="/post/0" class="blog">这是一篇文章</a><br>
+                <p>1145年1月4日<span>作者:?</span></p>
+            </li>
+            <li class="title"> <a href="/post/0" class="blog">这是一篇文章</a><br>
+                <p>1145年1月4日<span>作者:?</span></p>
+            </li>
+            <li class="title"> <a href="/post/0" class="blog">这是一篇文章</a><br>
+                <p>1145年1月4日<span>作者:?</span></p>
+            </li>
+            <li class="title"> <a href="/post/0" class="blog">这是一篇文章</a><br>
+                <p>1145年1月4日<span>作者:?</span></p>
+            </li>
+            <li class="title"> <a href="/post/0" class="blog">这是一篇文章</a><br>
+                <p>1145年1月4日<span>作者:?</span></p>
+            </li>
+            <li class="title"> <a href="/post/0" class="blog">这是一篇文章</a><br>
+                <p>1145年1月4日<span>作者:?</span></p>
+            </li>
+            <li class="title"> <a href="/post/0" class="blog">这是一篇文章</a><br>
+                <p>1145年1月4日<span>作者:?</span></p>
+            </li>
+            <li class="title"> <a href="/post/0" class="blog">这是一篇文章</a><br>
+                <p>1145年1月4日<span>作者:?</span></p>
+            </li>
+            <li class="title"> <a href="/post/0" class="blog">这是一篇文章</a><br>
+                <p>1145年1月4日<span>作者:?</span></p>
+            </li>
+        </ul>
+    </div>
+
+
+    <script>
+        function showtime() {
+            let d = new Date();
+            document.getElementById("date").innerHTML = d;
+            setTimeout(showtime, 1000);
+        }
+        function color_sign_change() {
+            document.getElementById("signature").style.color = document.getElementById("color_sign").value;
+        }
+        function back_class_change() {
+            let color_class = document.getElementById("back_class").value;
+            document.getElementById("div_light").className = color_class;
+            color_class = "deep_" + color_class;
+            document.getElementById("div_deep").className = color_class;
+        }
+        function change() {
+            let form = document.getElementById("form");
+            form.submit();
+        }
+    </script>
+
+</body>
+
+</html>

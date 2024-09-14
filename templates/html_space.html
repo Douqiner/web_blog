@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+
+  </title>
+
+  <link rel="shortcut icon" type=images/x-icon href=/static/home/logo.ico>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-image: url('/static/home/blue.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    .blue {
+      background-color: rgba(0, 159, 212, 0.4);
+    }
+
+    .white {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .deep_blue {
+      background-color: rgba(0, 159, 212, 1);
+    }
+
+    .deep_white {
+      background-color: rgba(255, 255, 255, 1);
+    }
+
+    .red {
+      background-color: rgba(255, 99, 71, 0.4);
+    }
+
+    .deep_red {
+      background-color: rgba(255, 99, 71, 1);
+    }
+
+    .yellow {
+      background-color: rgba(255, 255, 0, 0.4);
+    }
+
+    .deep_yellow {
+      background-color: rgba(255, 255, 0, 1);
+    }
+
+    .green {
+      background-color: rgba(120, 255, 0, 0.4);
+    }
+
+    .deep_green {
+      background-color: rgba(120, 255, 0, 1);
+    }
+
+    .pink {
+      background-color: rgba(255, 152, 227, 0.4);
+    }
+
+    .deep_pink {
+      background-color: rgba(255, 152, 227, 1);
+    }
+
+    a.blog {
+      font-family: Verdana;
+      font-size: 150%;
+      font-weight: bold;
+      color: rgba(255, 101, 71, 1);
+      text-decoration: none;
+    }
+
+    a:hover.blog {
+      font-family: Verdana;
+      font-size: 150%;
+      font-weight: bold;
+      color: red;
+      text-decoration: none;
+    }
+
+    a:visited.blog {
+      font-family: Verdana;
+      font-size: 150%;
+      font-weight: bold;
+      color: rgba(66, 123, 106, 1);
+      text-decoration: none;
+    }
+
+    li.title {
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+  </style>
+
+</head>
+
+<body onload="showtime()">
+
+  <div class="deep_white" style="position: fixed;top: 0;right: 0;width: 100%;">
+    <h2 style="color: pink">
+    </h2>
+    <span id="date"></span>
+
+  </div>
+
+  <div class="deep_white" style="visibility:hidden;">
+    <h2>一</h2>
+    <a>一</a>
+  </div>
+
+  <div class="white">
+    <h1 id="name_blog">
+
+    </h1>
+    <ul id="list">
+
+    </ul>
+  </div>
+
+
+  <script>
+    function showtime() {
+      let d = new Date();
+      document.getElementById("date").innerHTML = d;
+      setTimeout(showtime, 1000);
+    }
+  </script>
+
+</body>
+
+</html>

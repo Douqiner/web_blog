@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>登录</title>
+
+  <link rel="shortcut icon" type=images/x-icon href=/static/home/logo.ico>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    input.add {
+      border: none;
+      outline: none;
+      padding: 0;
+      margin: 0;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: none;
+      background-color: rgba(255, 255, 255, 1);
+      font-family: Verdana;
+      font-size: 120%;
+      width: 100%;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    body {
+      background-image: url('/static/home/blue.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    .white {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    form.central {
+      position: fixed;
+      border: 5px solid rgba(181, 144, 255, 1);
+      background-color: rgba(181, 144, 255, 0.8);
+      bottom: 50%;
+      right: 35%;
+      width: 30%;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <form id="login" class="central" action="/login" method="post">
+    <div>
+      <label for="username">用户名:</label>
+      <input type="text" id="username" name="username" class="add" value={{username}}>
+      <br>
+      <label for="password">密码:</label>
+      <input type="password" id="password" name="password" class="add">
+      <br>
+      <span style="color:red;">{{error}}</span>
+    </div>
+
+
+    <a href="/register">注册</a>
+    <button type="button" style="position:relative;left:0px;" onclick="login()">登录</button><a href="/"> 回到主页</a>
+
+  </form>
+
+  <script>
+
+    function login() {
+      let form = document.getElementById("login");
+      form.submit();
+    }
+
+  </script>
+
+</body>
+
+</html>

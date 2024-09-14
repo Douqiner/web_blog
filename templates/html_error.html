@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> >ᯅ< </title>
+
+      <link rel="shortcut icon" type=images/x-icon href=/static/home/logo.ico>
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <style>
+        textarea {
+          border: none;
+          outline: none;
+          padding: 0;
+          margin: 0;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          background-image: none;
+          background-color: transparent;
+          font-size: inherit;
+          font-family: Verdana;
+          width: 100%;
+        }
+
+        textarea:focus {
+          outline: none;
+        }
+
+        body {
+          background-image: url('/static/home/blue.png');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+        }
+
+        .blue {
+          background-color: rgba(0, 159, 212, 0.4);
+        }
+
+        .white {
+          background-color: rgba(255, 255, 255, 0.6);
+        }
+      </style>
+
+</head>
+
+<body onload="showtime()">
+  <div class="white">
+    <h1>没有找到这篇博客</h1>
+    <p>发表时间：未知</p><a href="/">回到主页</a>
+    <p id="date1"></p>
+  </div>
+
+  <div class="white">
+    <textarea rows="30" readonly>
+这里本该有些内容(⌯꒪꒫꒪)੭
+</textarea>
+  </div>
+
+  <script>
+    function showtime() {
+      let d = new Date();
+      document.getElementById("date1").innerHTML = d;
+      setTimeout(showtime, 1000);
+    }
+  </script>
+
+</body>
+
+</html>

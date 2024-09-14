@@ -1,0 +1,27 @@
+CREATE TABLE blog (
+    id bigint NOT NULL AUTO_INCREMENT,
+    author bigint NOT NULL,
+    title varchar(255) NOT NULL,
+    time varchar(63) NOT NULL,
+    content text NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE user (
+    id bigint NOT NULL AUTO_INCREMENT,
+    username varchar(63) NOT NULL UNIQUE,
+    password varchar(255) NOT NULL,
+    signature varchar(255) NOT NULL,
+    color_sign varchar(15) NOT NULL,
+    back_class varchar(15) NOT NULL,
+    back_photo varchar(255) NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+
+DELETE FROM blog WHERE title="输入框";
+UPDATE blog SET author = 3 WHERE id = 13;
+SELECT * FROM blog WHERE title="对up主_和泉妃爱_love三剪行为的抨击";
+
+<li class="title"> <a href="/post/0" class="blog">这是一篇文章</a><br><p>1145年5月14日<span>作者:?</span></p></li>

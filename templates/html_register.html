@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>注册</title>
+
+    <link rel="shortcut icon" type=images/x-icon href=/static/home/logo.ico>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        input.add {
+            border: none;
+            outline: none;
+            padding: 0;
+            margin: 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: none;
+            background-color: rgba(255, 255, 255, 1);
+            font-family: Verdana;
+            font-size: 120%;
+            width: 100%;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        body {
+            background-image: url('/static/home/blue.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        form.central {
+            position: fixed;
+            border: 5px solid rgba(181, 144, 255, 1);
+            background-color: rgba(181, 144, 255, 0.8);
+            bottom: 50%;
+            right: 35%;
+            width: 30%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <form id="register" class="central" action="/register" method="post">
+        <div>
+            <label for="username">用户名:</label>
+            <input type="text" id="username" name="username" class="add" value={{username}}>
+            <br>
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" class="add">
+            <br>
+            <label for="_password">确认密码:</label>
+            <input type="password" id="_password" name="_password" class="add">
+            <br>
+            <span style="color:red;">{{error}}</span>
+        </div>
+
+        <a href="/login">已有账号？登录</a>
+        <button type="button" style="position:relative;left:0px;" onclick="register()">注册</button><a href="/"> 回到主页</a>
+
+    </form>
+
+    <script>
+
+        function register() {
+            let form = document.getElementById("register");
+            form.submit();
+        }
+
+    </script>
+
+</body>
+
+</html>
